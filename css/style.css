@@ -946,7 +946,11 @@ body._lock {
   min-height: 78px;
   width: 100%;
 }
-
+@media (any-hover: hover) {
+  .content-main__link:hover {
+    background-color: #e4905b;
+  } 
+}
 .slider-main {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2633,10 +2637,6 @@ body._lock {
 
   .cart-list__delete:hover {
     text-decoration: underline;
-  }
-
-  .content-main__link:hover {
-    background-color: #e4905b;
   }
 
   .item-product:hover .item-product__actions {
