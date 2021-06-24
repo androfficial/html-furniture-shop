@@ -1691,6 +1691,8 @@ body._lock {
   display: block;
   -o-object-fit: cover;
      object-fit: cover;
+  -webkit-filter: grayscale(0);
+          filter: grayscale(0);
 }
 
 .row-furniture--left-top {
@@ -2698,14 +2700,14 @@ body._lock {
   }
 
   .row-furniture__item img {
+    -webkit-filter: grayscale(1);
+            filter: grayscale(1);
     -webkit-transition: all .8s ease 0s;
     -o-transition: all .8s ease 0s;
     transition: all .8s ease 0s;
-    -webkit-filter: grayscale(1);
-            filter: grayscale(1);
   }
 
-  .row-furniture__item:hover img {
+  .row-furniture__item img:hover {
     -webkit-filter: grayscale(0);
             filter: grayscale(0);
   }
