@@ -450,6 +450,7 @@ body._lock {
 }
 
 .swiper-pagination-bullet {
+  opacity: 1;
   background: none;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 27px;
