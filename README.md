@@ -2,7 +2,7 @@
 
 Landing page for Funiro, a furniture store, where a visitor can add products to a cart, load more products from JSON and browse several sliders. Built in June 2021 as a learning project.
 
-**Live demo:** [androfficial.github.io/furniture-shop](https://androfficial.github.io/furniture-shop/)
+**Live demo:** [androfficial.github.io/html-furniture-shop](https://androfficial.github.io/html-furniture-shop/)
 
 ## Features
 
@@ -27,8 +27,8 @@ Landing page for Funiro, a furniture store, where a visitor can add products to 
 The repository holds the compiled site, with no dependencies and no build step. "Show More" loads its data with `fetch`, which browsers block for `file://` pages, so serve the folder over HTTP, for example with `npx serve .` on Node.js 18 or later.
 
 ```bash
-git clone https://github.com/androfficial/furniture-shop.git
-cd furniture-shop
+git clone https://github.com/androfficial/html-furniture-shop.git
+cd html-furniture-shop
 npx serve .
 ```
 
