@@ -2,7 +2,6 @@ window.onload = () => {
 
    const documentActions = (e) => {
       const targetElement = e.target;
-      // Меню Линки
       if (window.innerWidth > 768 && isMobile.any()) {
          if (targetElement.classList.contains('menu__arrow')) {
             targetElement.closest('.menu__item').classList.toggle('_hover');
@@ -14,7 +13,6 @@ window.onload = () => {
             }
          }
       }
-      // Поиск
       if (targetElement.classList.contains('search-form__icon')) {
          document.querySelector('.search-form').classList.toggle('_active');
       } else if (!targetElement.closest('.search-form') && document.querySelector('.search-form._active')) {
@@ -45,7 +43,6 @@ window.onload = () => {
    };
    document.addEventListener('click', documentActions);
 
-   // Спойлер
    if (isMobile.any()) {
       const menuList = document.querySelector('.menu__list');
 
@@ -58,7 +55,6 @@ window.onload = () => {
       });
    }
 
-   // Шапка
    const headerElement = document.querySelector('.header');
 
 	const callback = function (entries, observer) {
@@ -86,7 +82,7 @@ window.onload = () => {
 				button.classList.remove('_hold');
 				button.remove();
 			} else {
-				alert("Ошибка");
+				alert("Error");
 			}
 		}
 	};
@@ -239,7 +235,6 @@ window.onload = () => {
 		const cartProduct = document.querySelector(`[data-cart-pid="${productId}"]`);
 		const cartList = document.querySelector('.cart-list');
 
-		//Добавляем
 		if (productAdd) {
 			if (cartQuantity) {
 				cartQuantity.innerHTML = ++cartQuantity.innerHTML;
@@ -263,7 +258,6 @@ window.onload = () => {
 				cartProductQuantity.innerHTML = ++cartProductQuantity.innerHTML;
 			}
 
-			// После всех действий
 			productButton.classList.remove('_hold');
 		} else {
 			const cartProductQuantity = cartProduct.querySelector('.cart-list__quantity span');
@@ -289,10 +283,8 @@ window.onload = () => {
 		const furnitureItems = document.querySelector('.furniture__items');
 		const furnitureColumn = document.querySelectorAll('.furniture__column');
 
-		// Скорость анимации
 		const speed = furniture.dataset.speed;
 
-		// Объявление переменных
 		let positionX = 0;
 		let coordXprocent = 0;
 
@@ -317,13 +309,10 @@ window.onload = () => {
 			}
 		}
 		furniture.addEventListener("mousemove", function (e) {
-			// Получение ширины
 			const furnitureWidth = furniture.offsetWidth;
 
-			// Ноль по середине
 			const coordX = e.pageX - furnitureWidth / 2;
 
-			// Получаем проценты
 			coordXprocent = coordX / furnitureWidth * 200;
 
 			if (!furniture.classList.contains('_init')) {
@@ -443,74 +432,66 @@ function DynamicAdapt(type) {
 
 DynamicAdapt.prototype.init = function () {
 	const _this = this;
-	// массив объектов
-	this.оbjects = [];
+	this.objects = [];
 	this.daClassname = "_dynamic_adapt_";
-	// массив DOM-элементов
 	this.nodes = document.querySelectorAll("[data-da]");
 
-	// наполнение оbjects объктами
 	for (let i = 0; i < this.nodes.length; i++) {
 		const node = this.nodes[i];
 		const data = node.dataset.da.trim();
 		const dataArray = data.split(",");
-		const оbject = {};
-		оbject.element = node;
-		оbject.parent = node.parentNode;
-		оbject.destination = document.querySelector(dataArray[0].trim());
-		оbject.breakpoint = dataArray[1] ? dataArray[1].trim() : "767";
-		оbject.place = dataArray[2] ? dataArray[2].trim() : "last";
-		оbject.index = this.indexInParent(оbject.parent, оbject.element);
-		this.оbjects.push(оbject);
+		const object = {};
+		object.element = node;
+		object.parent = node.parentNode;
+		object.destination = document.querySelector(dataArray[0].trim());
+		object.breakpoint = dataArray[1] ? dataArray[1].trim() : "767";
+		object.place = dataArray[2] ? dataArray[2].trim() : "last";
+		object.index = this.indexInParent(object.parent, object.element);
+		this.objects.push(object);
 	}
 
-	this.arraySort(this.оbjects);
+	this.arraySort(this.objects);
 
-	// массив уникальных медиа-запросов
-	this.mediaQueries = Array.prototype.map.call(this.оbjects, function (item) {
+	this.mediaQueries = Array.prototype.map.call(this.objects, function (item) {
 		return '(' + this.type + "-width: " + item.breakpoint + "px)," + item.breakpoint;
 	}, this);
 	this.mediaQueries = Array.prototype.filter.call(this.mediaQueries, function (item, index, self) {
 		return Array.prototype.indexOf.call(self, item) === index;
 	});
 
-	// навешивание слушателя на медиа-запрос
-	// и вызов обработчика при первом запуске
 	for (let i = 0; i < this.mediaQueries.length; i++) {
 		const media = this.mediaQueries[i];
 		const mediaSplit = String.prototype.split.call(media, ',');
 		const matchMedia = window.matchMedia(mediaSplit[0]);
 		const mediaBreakpoint = mediaSplit[1];
 
-		// массив объектов с подходящим брейкпоинтом
-		const оbjectsFilter = Array.prototype.filter.call(this.оbjects, function (item) {
+		const objectsFilter = Array.prototype.filter.call(this.objects, function (item) {
 			return item.breakpoint === mediaBreakpoint;
 		});
 		matchMedia.addListener(function () {
-			_this.mediaHandler(matchMedia, оbjectsFilter);
+			_this.mediaHandler(matchMedia, objectsFilter);
 		});
-		this.mediaHandler(matchMedia, оbjectsFilter);
+		this.mediaHandler(matchMedia, objectsFilter);
 	}
 };
 
-DynamicAdapt.prototype.mediaHandler = function (matchMedia, оbjects) {
+DynamicAdapt.prototype.mediaHandler = function (matchMedia, objects) {
 	if (matchMedia.matches) {
-		for (let i = 0; i < оbjects.length; i++) {
-			const оbject = оbjects[i];
-			оbject.index = this.indexInParent(оbject.parent, оbject.element);
-			this.moveTo(оbject.place, оbject.element, оbject.destination);
+		for (let i = 0; i < objects.length; i++) {
+			const object = objects[i];
+			object.index = this.indexInParent(object.parent, object.element);
+			this.moveTo(object.place, object.element, object.destination);
 		}
 	} else {
-		for (let i = 0; i < оbjects.length; i++) {
-			const оbject = оbjects[i];
-			if (оbject.element.classList.contains(this.daClassname)) {
-				this.moveBack(оbject.parent, оbject.element, оbject.index);
+		for (let i = 0; i < objects.length; i++) {
+			const object = objects[i];
+			if (object.element.classList.contains(this.daClassname)) {
+				this.moveBack(object.parent, object.element, object.index);
 			}
 		}
 	}
 };
 
-// Функция перемещения
 DynamicAdapt.prototype.moveTo = function (place, element, destination) {
 	element.classList.add(this.daClassname);
 	if (place === 'last' || place >= destination.children.length) {
@@ -524,7 +505,6 @@ DynamicAdapt.prototype.moveTo = function (place, element, destination) {
 	destination.children[place].insertAdjacentElement('beforebegin', element);
 }
 
-// Функция возврата
 DynamicAdapt.prototype.moveBack = function (parent, element, index) {
 	element.classList.remove(this.daClassname);
 	if (parent.children[index] !== undefined) {
@@ -534,15 +514,11 @@ DynamicAdapt.prototype.moveBack = function (parent, element, index) {
 	}
 }
 
-// Функция получения индекса внутри родителя
 DynamicAdapt.prototype.indexInParent = function (parent, element) {
 	const array = Array.prototype.slice.call(parent.children);
 	return Array.prototype.indexOf.call(array, element);
 };
 
-// Функция сортировки массива по breakpoint и place 
-// по возрастанию для this.type = min
-// по убыванию для this.type = max
 DynamicAdapt.prototype.arraySort = function (arr) {
 	if (this.type === "min") {
 		Array.prototype.sort.call(arr, function (a, b) {

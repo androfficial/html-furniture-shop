@@ -1024,7 +1024,6 @@ body._lock {
           flex-direction: column;
   padding: 24px;
   background: rgba(255, 255, 255, 0.9);
-  /* Если браузер поддерживает backdrop-filter */
 }
 
 @supports ((-webkit-backdrop-filter: blur(31px)) or (backdrop-filter: blur(31px))) {
@@ -2093,7 +2092,6 @@ body._lock {
   .content-main {
     padding: 60px;
     background: rgba(255, 255, 255, 0.9);
-    /* Если браузер поддерживает backdrop-filter */
   }
 
 @supports ((-webkit-backdrop-filter: blur(31px)) or (backdrop-filter: blur(31px))) {
